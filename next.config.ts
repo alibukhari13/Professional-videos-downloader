@@ -1,24 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
-  trailingSlash: true,
+  output: 'export', // Static export enable
+  trailingSlash: true, // URLs mein / add karo for static
   images: {
-    unoptimized: true,
+    unoptimized: true, // Images ko optimize na karo for static
   },
-  env: {
-    RAILWAY_ENV: "production",
-  },
-  async headers() {
-    return [
-      {
-        source: "/api/:path*",
-        headers: [
-          { key: "Access-Control-Allow-Origin", value: "*" },
-          { key: "Access-Control-Allow-Methods", value: "GET, POST, OPTIONS" },
-          { key: "Access-Control-Allow-Headers", value: "Content-Type" },
-        ],
-      },
-    ];
+  turbopack: {
+    root: process.cwd(),
   },
 };
 
