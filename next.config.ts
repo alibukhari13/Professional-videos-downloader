@@ -1,12 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone', // For Railway
+  output: "standalone",
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
   env: {
-    RAILWAY_ENV: 'production', // Real downloads
+    RAILWAY_ENV: "production",
+  },
+  async headers() {
+    return [
+      {
+        source: "/api/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          { key: "Access-Control-Allow-Methods", value: "GET, POST, OPTIONS" },
+          { key: "Access-Control-Allow-Headers", value: "Content-Type" },
+        ],
+      },
+    ];
   },
 };
 
