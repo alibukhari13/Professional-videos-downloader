@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone', // For Render
+  output: 'standalone', // For Railway
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
   env: {
-    RENDER_ENV: 'production', // Force real downloads
+    RAILWAY_ENV: 'production', // Real downloads
   },
 };
 

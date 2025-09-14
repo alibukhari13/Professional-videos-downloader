@@ -1,20 +1,24 @@
 # Use Node.js LTS as base image
 FROM node:20-slim
 
-# Install yt-dlp dependencies
+# Install dependencies for yt-dlp
 RUN apt-get update && apt-get install -y \
     python3 \
-    python3-pip \
+    python3-venv \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-# Install yt-dlp
-RUN pip3 install --no-cache-dir yt-dlp
+# Create and activate virtual environment for yt-dlp
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install yt-dlp in virtual environment
+RUN pip install --no-cache-dir yt-dlp
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and install dependencies
+# Copy package.json and install Node.js dependencies
 COPY package*.json ./
 RUN npm install
 
@@ -25,7 +29,7 @@ COPY . .
 RUN npm run build
 
 # Expose port
-EXPOSE 8080
+EXPOSE 3000
 
 # Start the app
 CMD ["npm", "start"]
