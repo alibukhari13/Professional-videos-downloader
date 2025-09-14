@@ -1,12 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // Static export enable
-  trailingSlash: true, // URLs mein / add karo for static
+  output: 'standalone', // For Railway production
+  trailingSlash: true,
   images: {
-    unoptimized: true, // Images ko optimize na karo for static
+    unoptimized: true,
   },
-  turbopack: {
-    root: process.cwd(),
+  allowedDevOrigins: ['professional-videos-downloader-production.up.railway.app'], // Fix cross-origin warning
+  env: {
+    RAILWAY_ENV: 'production', // Real downloads
   },
 };
 
